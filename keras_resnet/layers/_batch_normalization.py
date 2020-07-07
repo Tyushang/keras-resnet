@@ -1,9 +1,9 @@
-import keras
 
+import tensorflow
 
-class BatchNormalization(keras.layers.BatchNormalization):
+class BatchNormalization(tensorflow.keras.layers.BatchNormalization):
     """
-    Identical to keras.layers.BatchNormalization, but adds the option to freeze parameters.
+    Identical to tensorflow.keras.layers.BatchNormalization, but adds the option to freeze parameters.
     """
     def __init__(self, freeze, *args, **kwargs):
         self.freeze = freeze
@@ -14,7 +14,7 @@ class BatchNormalization(keras.layers.BatchNormalization):
 
     def call(self, *args, **kwargs):
         # return super.call, but set training
-        return super(BatchNormalization, self).call(training=(not self.freeze), *args, **kwargs)
+        return super(BatchNormalization, self).call(*args, **kwargs)
 
     def get_config(self):
         config = super(BatchNormalization, self).get_config()

@@ -144,7 +144,8 @@ def bottleneck_2d(filters, stage=0, block=0, kernel_size=3, numerical_name=False
         else:
             shortcut = x
 
-        y = tensorflow.keras.layers.Add(name="res{}{}".format(stage_char, block_char))([y, shortcut])
+        # y = tensorflow.keras.layers.Add(name="res{}{}".format(stage_char, block_char))([y, shortcut])
+        y = tensorflow.add_n([y, shortcut], name=f'tyu_res{stage_char}{block_char}')
         y = tensorflow.keras.layers.Activation("relu", name="res{}{}_relu".format(stage_char, block_char))(y)
 
         return y
